@@ -1,0 +1,17 @@
+body{
+    text-align: center;
+    background-color: aquamarine;
+}
+
+.button{
+    height: 100px;
+    width: 100px;
+    border: none;
+    margin: 10px;
+    background-color: rgb(244, 247, 246);
+    border-radius: 40px;
+    cursor: pointer;
+
+.image{
+    height: 80px;
+}

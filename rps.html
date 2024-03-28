@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>RPS game</title>
+    <link rel="stylesheet" href="rps.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+   <h1>ROCK PAPER SCISSOR </h1> 
+
+   <button class="button" onclick="
+   let computer=computerchoise();
+   let rmsg=result('ROCK',computer);   
+  showr('ROCK',computer,rmsg);
+   
+   "><img src="image/rock.jpg" alt="rock" class="image"></button>
+
+
+   <button class="button" onclick=" 
+    computer=computerchoise();
+    rmsg=result('PAPER',computer);
+    showr('PAPER',computer,rmsg);
+    
+   "><img src="image/paper.jpg" alt="paper" class="image"></button>
+
+ <button class="button" onclick="   
+   computer=computerchoise();  
+  rmsg=result('SCISSOR',computer);
+  showr('SCISSOR',computer,rmsg);
+  
+   "><img src="image/scissor.jpg" alt="scissor" class="image"></button>
+
+  
+<h3 id="user-move" ></h3>
+<h3 id="computer-move"></h3>
+<h3 id="result"></h3>
+<h3 id="score"></h3>
+
+<button onclick="localStorage.clear()
+   resetscore();
+  ">reset</button>
+
+
+<script>
+  let scorestr=localStorage.getItem('score');
+  let score;
+  resetscore(scorestr);
+  function resetscore(scorestr){
+     score=scorestr ? JSON.parse(scorestr):{   
+  win:0,    
+  lost:0,
+  tie:0,
+  
+   };
+
+score.display=function(){
+   return `score: win:${score.win}-tie:${score.tie}-loose:${score.lost}`;
+ }
+ showr();
+}
+   function computerchoise(){
+    let randomNumber=Math.random()*3;
+  
+   if(randomNumber>0 && randomNumber<=1){
+     return 'ROCK';
+   }
+   else if(randomNumber>1 && randomNumber<=2){
+     return 'PAPER';   
+   }
+   else{
+     return 'SCISSOR';  
+   } 
+  }
+function result(user,computer){
+if(user=== 'ROCK'){
+  if(computer==='ROCK'){
+    score.tie++;
+    return 'tie';
+   }else if(computer==='PAPER'){
+    score.lost++;
+     return 'loose!!';
+   }else if(computer==='SCISSOR'){
+    score.win++;
+    return 'win!!!';
+   }
+}
+else if(user==='PAPER'){
+  if(computer==='ROCK'){
+score.win++;
+    return 'win!!';
+   }else if(computer==='PAPER'){
+    score.tie++;
+     return 'tie';
+   }else if(computer==='SCISSOR'){
+    score.lost++;
+    return 'loose';
+   }
+}
+else{
+  if(computer==='ROCK'){
+    score.lost++;
+    return 'loose';
+   }else if(computer==='PAPER'){
+    score.win++;
+     return 'win!!!';
+   }else if(computer==='SCISSOR'){
+    score.tie++;
+    return 'tie';
+   }
+}
+}
+function showr(userm,computerm,result){
+  localStorage.setItem('score',JSON.stringify(score));
+  document.querySelector("#user-move").innerText= userm !== undefined ? `You choose ${userm}`:'';
+  document.querySelector("#computer-move").innerText=computerm !== undefined ? `computer choose ${computerm}`:'';
+  document.querySelector("#result").innerText=result !== undefined ? result:'';
+  document.querySelector("#score").innerText=score.display();
+
+  ;
+}
+
+
+
+</script>
+
+</body>
+</html>
